@@ -1,5 +1,5 @@
 import "dotenv/config";
-import connectDB from "./config.js/db.js";
+import connectDB from "./config/db.js";
 
 import express from "express";
 import path from "path";
@@ -7,6 +7,7 @@ import cors from "cors";
 
 // rotas
 import routes from "./routes/Router.js";
+import userRouter from "./routes/UserRoutes.js";
 
 const port = process.env.PORT;
 
@@ -28,3 +29,4 @@ connectDB()
   });
 
 app.use(routes);
+app.use("/api/users", userRouter);
