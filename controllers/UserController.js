@@ -66,3 +66,11 @@ export const login = async (req, res) => {
     token: generateToken(user._id),
   });
 };
+
+// Get current user logged
+
+export const getCurrentUser = async (req, res) => {
+  const user = req.user;
+
+  return res.status(200).json(user);
+};
