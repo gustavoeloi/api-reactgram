@@ -44,3 +44,8 @@ export const register = async (req, res) => {
     token: generateToken(newUser._id),
   });
 };
+
+//Login
+export const login = (req, res) => {
+  res.send("Login...");
+};

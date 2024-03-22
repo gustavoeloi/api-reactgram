@@ -28,3 +28,14 @@ export const userCreateValidation = () => {
       }),
   ];
 };
+
+export const loginValidation = () => {
+  return [
+    body("email")
+      .isEmpty()
+      .withMessage("Informe o e-mail")
+      .isEmail()
+      .withMessage("Informe um e-mail válido"),
+    body("password").isEmpty().withMessage("Informe a senha"),
+  ];
+};
