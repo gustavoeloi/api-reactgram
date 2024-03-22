@@ -32,10 +32,14 @@ export const userCreateValidation = () => {
 export const loginValidation = () => {
   return [
     body("email")
-      .isEmpty()
+      .notEmpty()
       .withMessage("Informe o e-mail")
       .isEmail()
       .withMessage("Informe um e-mail válido"),
-    body("password").isEmpty().withMessage("Informe a senha"),
+    body("password")
+      .notEmpty()
+      .withMessage("Informe a senha")
+      .isLength({ min: 6 })
+      .withMessage("O mínimo de caracteres é 6"),
   ];
 };

@@ -33,19 +33,36 @@ export const register = async (req, res) => {
   });
 
   if (!newUser) {
-    res
+    return res
       .status(422)
       .json({ errors: ["Houve um imprevisto, tente novamente mais tarde"] });
-    return;
   }
 
-  res.status(201).json({
+  return res.status(201).json({
     _id: newUser._id,
     token: generateToken(newUser._id),
   });
 };
 
 //Login
-export const login = (req, res) => {
-  res.send("Login...");
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return res
+      .status(401)
+      .json({ errors: ["E-mail não encontrando em nossa base de dados"] });
+  }
+
+  if (!(await bcrypt.compare(password, user.password))) {
+    return res.status(401).json({ errors: ["Senha inválida"] });
+  }
+
+  return res.status(201).json({
+    _id: user._id,
+    profileImage: user.profileImage,
+    token: generateToken(user._id),
+  });
 };
