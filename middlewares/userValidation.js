@@ -43,3 +43,16 @@ export const loginValidation = () => {
       .withMessage("O mínimo de caracteres é 6"),
   ];
 };
+
+export const userUpdateValition = () => {
+  return [
+    body("name")
+      .optional()
+      .isLength({ min: 5 })
+      .withMessage("O nome precisa ter no mínimo 5 caracteres"),
+    body("password")
+      .optional()
+      .isLength({ min: 6 })
+      .withMessage("A senha precisa ter no mínimo 6 caracteres!"),
+  ];
+};
