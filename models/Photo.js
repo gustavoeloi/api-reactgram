@@ -7,7 +7,7 @@ const photoSchema = new Schema(
     title: String,
     likes: Array,
     comments: Array,
-    user: { type: Schema.Types.ObjectId, ref: "User" }, // reference to the User model
+    userId: { type: Schema.Types.ObjectId, ref: "User" },
     userName: String,
   },
   { timestamps: true }

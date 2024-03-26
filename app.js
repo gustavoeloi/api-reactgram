@@ -7,7 +7,6 @@ import cors from "cors";
 
 // rotas
 import routes from "./routes/Router.js";
-import userRouter from "./routes/UserRoutes.js";
 
 const port = process.env.PORT;
 
@@ -29,4 +28,3 @@ connectDB()
   });
 
 app.use(routes);
-app.use("/api/users", userRouter);
