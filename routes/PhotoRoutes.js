@@ -10,6 +10,7 @@ import {
   updatePhoto,
   likePhoto,
   commentPhoto,
+  searchPhotos,
 } from "../controllers/PhotoController.js";
 
 // Middlewares
@@ -36,6 +37,8 @@ router.delete("/:id", authGuard, deletePhoto);
 router.get("/", authGuard, getAllPhotos);
 
 router.get("/user/:id", authGuard, getUserPhotos);
+
+router.get("/search", authGuard, searchPhotos);
 
 router.get("/:id", authGuard, getPhotoById);
 

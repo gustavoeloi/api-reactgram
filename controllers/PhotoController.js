@@ -187,3 +187,12 @@ export const commentPhoto = async (req, res) => {
     .status(200)
     .json({ message: "Comentário enviado!", comment: commentUser });
 };
+
+// Find a photos by title
+export const searchPhotos = async (req, res) => {
+  const { q } = req.query;
+
+  const photos = await Photo.find({ title: new RegExp(q, "i") }).exec();
+
+  res.status(200).json(photos);
+};
