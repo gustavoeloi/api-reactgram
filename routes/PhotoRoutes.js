@@ -9,12 +9,14 @@ import {
   getPhotoById,
   updatePhoto,
   likePhoto,
+  commentPhoto,
 } from "../controllers/PhotoController.js";
 
 // Middlewares
 import {
   photosInsertValidation,
   photoUpdateValidation,
+  photoCommentValidation,
 } from "../middlewares/photoValidation.js";
 import { authGuard } from "../middlewares/authGuard.js";
 import imageUpload from "../middlewares/imageUpload.js";
@@ -40,5 +42,13 @@ router.get("/:id", authGuard, getPhotoById);
 router.put("/:id", authGuard, photoUpdateValidation(), validate, updatePhoto);
 
 router.put("/like/:id", authGuard, likePhoto);
+
+router.put(
+  "/comment/:id",
+  authGuard,
+  photoCommentValidation(),
+  validate,
+  commentPhoto
+);
 
 export default router;

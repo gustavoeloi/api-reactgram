@@ -29,3 +29,13 @@ export const photoUpdateValidation = () => {
       .withMessage("O título precisa ter no mínimo 6 caracteres"),
   ];
 };
+
+export const photoCommentValidation = () => {
+  return [
+    body("comment")
+      .notEmpty()
+      .withMessage("O comentário é obrigatório!")
+      .isLength({ min: 5 })
+      .withMessage("O comentário deve ter no mínimo 5 caracteres"),
+  ];
+};

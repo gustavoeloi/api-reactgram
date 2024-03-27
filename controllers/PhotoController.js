@@ -147,11 +147,43 @@ export const likePhoto = async (req, res) => {
 
   await photo.save();
 
+  return res.status(200).json({
+    photo: photo.id,
+    userId: reqUser._id,
+    message: "Foto curtida com sucesso!",
+  });
+};
+
+// Comment on a photo
+export const commentPhoto = async (req, res) => {
+  const { id } = req.params;
+  const { comment } = req.body;
+
+  const reqUser = req.user;
+
+  const photo = await Photo.findById(id);
+  const user = await User.findById(reqUser._id);
+
+  if (!photo) {
+    return res.status(404).json({ errors: ["Foto não encontrada"] });
+  }
+
+  if (!user) {
+    return res.status(404).json({ errors: ["Usuário não encontrado"] });
+  }
+
+  const commentUser = {
+    comment,
+    userName: user.name,
+    userImage: user.profileImage,
+    userId: user._id,
+  };
+
+  photo.comments.push(commentUser);
+
+  await photo.save();
+
   return res
     .status(200)
-    .json({
-      photo: photo.id,
-      userId: reqUser._id,
-      message: "Foto curtida com sucesso!",
-    });
+    .json({ message: "Comentário enviado!", comment: commentUser });
 };
