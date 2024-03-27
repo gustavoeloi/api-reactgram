@@ -126,3 +126,32 @@ export const updatePhoto = async (req, res) => {
 
   return res.status(200).json({ message: "Foto alterada com sucesso!", photo });
 };
+
+// Like a photo
+export const likePhoto = async (req, res) => {
+  const { id } = req.params;
+
+  const reqUser = req.user;
+
+  const photo = await Photo.findById(id);
+
+  if (!photo) {
+    return res.status(404).json({ errors: ["Foto não encontrada!"] });
+  }
+
+  if (photo.likes.includes(reqUser._id)) {
+    return res.status(422).json({ errors: ["Você já curtiu essa foto!"] });
+  }
+
+  photo.likes.push(reqUser._id);
+
+  await photo.save();
+
+  return res
+    .status(200)
+    .json({
+      photo: photo.id,
+      userId: reqUser._id,
+      message: "Foto curtida com sucesso!",
+    });
+};
