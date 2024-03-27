@@ -8,8 +8,13 @@ export const photosInsertValidation = () => {
       .withMessage("O título é obrigatório")
       .isString()
       .withMessage("O título é obrigatório")
+<<<<<<< HEAD
       .isLength({ min: 6 })
       .withMessage("O título precisa ter no mínimo 6 caracteres"),
+=======
+      .isLength({ min: 3 })
+      .withMessage("O título precisa ter no mínimo 3 caracteres"),
+>>>>>>> d4847e35589f27b8c7c6736cbb7da8d38c130d98
     body("image").custom((value, { req }) => {
       if (!req.file) {
         throw new Error("A imagem é obrigatória");
@@ -18,6 +23,7 @@ export const photosInsertValidation = () => {
     }),
   ];
 };
+<<<<<<< HEAD
 
 export const photoUpdateValidation = () => {
   return [
@@ -39,3 +45,5 @@ export const photoCommentValidation = () => {
       .withMessage("O comentário deve ter no mínimo 5 caracteres"),
   ];
 };
+=======
+>>>>>>> d4847e35589f27b8c7c6736cbb7da8d38c130d98
