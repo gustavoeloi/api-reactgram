@@ -41,13 +41,17 @@ export const deletePhoto = async (req, res) => {
       return res.status(404).json({ errors: ["Foto não encontrada"] });
     }
 
-    if (!photo.userId.equals(reqUser._id)) {
+    if (!photo.userId?.equals(reqUser._id)) {
       return res
         .status(422)
         .json({ errors: ["Você não tem permissão para excluir esta foto"] });
     }
 
-    await photo.remove();
+    const photoDelete = await Photo.findByIdAndDelete(id);
+
+    if (!photoDelete) {
+      return res.status(404).json({ errors: ["Foto não encontrada"] });
+    }
 
     res
       .status(200)
@@ -59,4 +63,12 @@ export const deletePhoto = async (req, res) => {
       .status(500)
       .json({ errors: "Ocorreu um erro, tente novamente mais tarde" });
   }
+};
+
+export const getAllPhotos = async (req, res) => {
+  const photos = await Photo.find({})
+    .sort([["createdAt", -1]])
+    .exec();
+
+  return res.status(200).json(photos);
 };
