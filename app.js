@@ -15,6 +15,7 @@ const app = express();
 // Configurando o JSON e o form data response
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 // Conexão com o banco de dados
 connectDB()
