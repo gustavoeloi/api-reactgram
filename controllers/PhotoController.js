@@ -4,13 +4,17 @@ import User from "../models/User.js";
 
 // Insert a photo with an user related do it
 export const insertPhoto = async (req, res) => {
-  const { title } = req.body;
+  const { title, description } = req.body;
   const image = req.file.filename;
 
   const reqUser = req.user;
 
   const user = await User.findById(reqUser._id);
-  console.log(user);
+
+  if (!user) {
+    res.status(404).json({ errors: ["Usuário não encontrado!"] });
+    return;
+  }
 
   // Creating photo
   const newPhoto = await Photo.create({
