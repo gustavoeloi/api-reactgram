@@ -16,6 +16,7 @@ export const insertPhoto = async (req, res) => {
   const newPhoto = await Photo.create({
     image,
     title,
+    description,
     userId: new mongoose.Types.ObjectId(user._id),
     userName: user.name,
   });
